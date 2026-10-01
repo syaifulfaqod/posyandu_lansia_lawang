@@ -98,6 +98,7 @@ router.post("/:id/unlock", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+//
   try {
     const data = await UserService.getAllUsers();
     res.json(data);
