@@ -5,6 +5,7 @@ node_modules/
 dist/
 
 # Environment Variables
+// file .env (yang biasanya berisi password database dan API secret) sudah diblokir agar tidak ter-push ke GitHub.
 .env
 .env*.local
 !.env.example

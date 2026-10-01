@@ -4,6 +4,7 @@ import { user, account, session } from "../db/schema";
 import { auth } from "../config/auth";
 // @ts-ignore
 import { hashPassword } from "@better-auth/utils/password";
+//sistem sudah menggunakan library standard untuk keamanan password
 
 export class UserService {
   static async getAllUsers() {
@@ -21,6 +22,8 @@ export class UserService {
     const email = `${data.username}@posyandu.local`;
 
     // 1. Create user via BetterAuth to handle password hashing and ID generation safely
+
+    // Disini password juga dihandle oleh library BetterAuth, untuk kemanan eksternal
     const res = await auth.api.signUpEmail({
       body: {
         email: email,
@@ -61,6 +64,7 @@ export class UserService {
     const [updatedUser] = await db.select().from(user).where(eq(user.id, id));
 
     // 2. Update password if provided
+    // Disini password juga dihandle oleh library BetterAuth, untuk kemanan eksternal
     if (data.password && data.password.trim() !== '') {
       const hashedPassword = await hashPassword(data.password);
       await db.update(account).set({
