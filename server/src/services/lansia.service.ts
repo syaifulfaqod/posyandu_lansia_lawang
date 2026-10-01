@@ -29,6 +29,7 @@ export class LansiaService {
     if (lansiaIds.length > 0) {
       allRiwayats = await db.select().from(pemeriksaan).where(inArray(pemeriksaan.lansiaId, lansiaIds));
     }
+    // aplikasi sudah optimal karena menggunakan teknik inArray (SELECT ... WHERE id IN (...)). Hanya butuh 1 kali query ke database untuk mengambil seluruh riwayat dari 100 Lansia. Sangat efisien!
     
     return results.map(r => {
       const riwayat = allRiwayats
@@ -58,6 +59,7 @@ export class LansiaService {
     return newData;
   }
 
+  //Saat memasukkan (import) data Excel yang berisi ratusan baris, fungsi ini memanfaatkan Bulk Insert (.values(insertData) di mana insertData adalah sebuah Array). Ini jauh lebih cepat daripada menggunakan perulangan (for loop) yang memanggil db.insert berulang kali.
   static async bulkCreateLansia(dataList: any[]) {
     if (dataList.length === 0) return [];
     
