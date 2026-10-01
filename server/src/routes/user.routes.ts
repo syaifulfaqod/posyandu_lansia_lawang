@@ -45,7 +45,8 @@ router.post("/login-failed", async (req, res) => {
       .from(user)
       .where(eq(user.email, email));
     if (!existingUser) return res.json({ success: true });
-
+// Variabel sudah sesuai dan mudah dipahami
+// Contohnya disini isAdminKkn digunakan untuk mengecek apakah user adalah Admin KKN RAMAH LANSIAS
     const isAdminKkn =
       existingUser.role === "Admin" && existingUser.name === "KKN RAMAH LANSIA";
     if (!isAdminKkn) {
